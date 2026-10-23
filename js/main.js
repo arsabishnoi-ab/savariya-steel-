@@ -1,6 +1,6 @@
 /* Set phone to the firm's 10-digit mobile when it is known. Do not guess. */
 var FIRM = {
-  phone: ""
+  phone: "9380057798"
 };
 
 var PRODUCTS = [
@@ -141,7 +141,7 @@ function initPhone() {
   var digits = String(FIRM.phone || "").replace(/\D/g, "");
   if (!digits) return;
   var local = digits.length > 10 ? digits.slice(-10) : digits;
-  var pretty = "+91 " + local;
+  var pretty = "+91 " + local.slice(0, 5) + " " + local.slice(5);
   var tel = "+91" + local;
   var wa = "https://wa.me/91" + local;
 
