@@ -4,6 +4,11 @@ var FIRM = {
 };
 
 var PRODUCTS = [
+  { name: "Building gas riser", line: "Blue lines up the outside wall", category: "Gas Pipelines", image: "assets/images/gas-building-riser.jpg", inAll: false },
+  { name: "Corner gas run", line: "Pipes turning the block corner", category: "Gas Pipelines", image: "assets/images/gas-corner-run.jpg", inAll: false },
+  { name: "Wall gas drops", line: "Five outlets from one line", category: "Gas Pipelines", image: "assets/images/gas-wall-drops.jpg", inAll: false },
+  { name: "Site gas line", line: "Blue pipe along the block wall", category: "Gas Pipelines", image: "assets/images/gas-site-line.jpg", inAll: false },
+  { name: "Gas pipe branch", line: "A T-joint under the slab", category: "Gas Pipelines", image: "assets/images/gas-pipe-branch.jpg", inAll: false },
   { name: "LPG cylinders", line: "Piped cylinders with a meter", category: "Gas Pipelines", image: "assets/images/gas-lpg-cylinders.jpg" },
   { name: "Kitchen LPG cylinder", line: "Cylinder and hose in a cabinet", category: "Gas Pipelines", image: "assets/images/gas-kitchen-cylinder.jpg" },
   { name: "LPG regulator", line: "Red regulator on the rubber hose", category: "Gas Pipelines", image: "assets/images/gas-lpg-regulator.jpg" },
@@ -226,7 +231,9 @@ function initHero() {
 
 function applyFilter(category) {
   document.querySelectorAll("[data-product]").forEach(function (card) {
-    var match = category === "All" || card.getAttribute("data-category") === category;
+    var match = category === "All"
+      ? card.getAttribute("data-in-all") !== "no"
+      : card.getAttribute("data-category") === category;
     card.hidden = !match;
   });
   document.querySelectorAll("[data-filter]").forEach(function (button) {
@@ -242,6 +249,7 @@ function initProducts() {
     card.className = "product-card";
     card.setAttribute("data-product", "");
     card.setAttribute("data-category", item.category);
+    if (item.inAll === false) card.setAttribute("data-in-all", "no");
     card.setAttribute("data-name", item.line ? item.name + " — " + item.line : item.name);
     card.setAttribute("data-image", item.image);
     card.innerHTML = "<span><strong></strong><em></em></span>";
@@ -273,6 +281,8 @@ function initProducts() {
       }
     });
   });
+
+  applyFilter("All");
 }
 
 function openLightbox(card) {
